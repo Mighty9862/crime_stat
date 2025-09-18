@@ -3,16 +3,24 @@ package org.example.service;
 import org.example.entity.CrimeRecord;
 import org.example.repository.CrimeRepository;
 import org.example.util.XMLReader;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+
 @Service
 public class CrimeService {
     private final CrimeRepository repository;
+
+    @Autowired
+    private DataFetcherService dataFetcherService;
+
     public CrimeService(CrimeRepository repository) { this.repository = repository; }
 
     public void reloadData() {
+        dataFetcherService.fetchData();
+
         repository.deleteAll();
         Map<String, CrimeRecord> records = new HashMap<>();
         processFile("data/extrem.xml", "extremism", records);
