@@ -23,7 +23,7 @@ services:
       - crime-network
 
   app:
-    build: .
+    build: ./backend
     container_name: crime-api
     restart: unless-stopped
     ports:
@@ -47,6 +47,19 @@ services:
       retries: 3
     networks:
       - crime-network
+
+    cllient:
+      build:
+        context: ./client
+        dockerfile: Dockerfile
+      container_name: crime-client
+      restart: unless-stopped
+      ports:
+        - "3200:3200"
+      depends_on:
+        - app
+      networks:
+        - crime-network
 
 volumes:
   postgres_data:
