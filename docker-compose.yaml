@@ -50,7 +50,7 @@ services:
     container_name: crime-client
     restart: unless-stopped
     ports:
-      - "3200:3200"
+      - "3000:3000"
     depends_on:
       - app
     networks:

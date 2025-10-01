@@ -13,7 +13,7 @@ FROM nginx:alpine
 
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-EXPOSE 3200
+EXPOSE 3000
 
 RUN chmod -R 755 /usr/share/nginx/html
 
