@@ -44,21 +44,20 @@ services:
       - crime-network
 
   client:
-    build: ./client
+    build:
+      context: ./client
+      dockerfile: Dockerfile
     container_name: crime-client
     restart: unless-stopped
     ports:
-      - "3200:3200"
       - "3200:3200"
     depends_on:
       - app
     networks:
       - crime-network
-      - "3200:3200"
 
 volumes:
   postgres_data:
-    driver: local
 
 networks:
   crime-network:
