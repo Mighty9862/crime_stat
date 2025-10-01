@@ -48,18 +48,17 @@ services:
     networks:
       - crime-network
 
-    cllient:
-      build:
-        context: ./client
-        dockerfile: Dockerfile
-      container_name: crime-client
-      restart: unless-stopped
-      ports:
-        - "3200:3200"
-      depends_on:
-        - app
-      networks:
-        - crime-network
+  client:
+    build: ./client
+    container_name: crime-client
+    restart: unless-stopped
+    ports:
+      - "3200:3200"
+    depends_on:
+      app:
+        condition: service_healthy
+    networks:
+      - crime-network
 
 volumes:
   postgres_data:
