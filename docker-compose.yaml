@@ -13,7 +13,7 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./src/main/resources/data:/docker-entrypoint-initdb.d  # Автозагрузка XML-файлов как init-скрипты (если нужно)
+      - ./backend/src/main/resources/data:/docker-entrypoint-initdb.d  # Автозагрузка XML-файлов как init-скрипты (если нужно)
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-admin} -d crime_db"]
       interval: 10s
@@ -39,7 +39,7 @@ services:
       db:
         condition: service_healthy
     volumes:
-      - ./src/main/resources/data:/app/resources/data:ro
+      - ./backend/src/main/resources/data:/app/resources/data:ro
     networks:
       - crime-network
 
@@ -50,7 +50,7 @@ services:
     container_name: crime-client
     restart: unless-stopped
     ports:
-      - "3000:3000"
+      - "3200:3200"
     depends_on:
       - app
     networks:
